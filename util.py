@@ -1,4 +1,6 @@
 from sklearn.impute import SimpleImputer
+from sklearn.metrics import mean_absolute_error
+
 import pandas as pd
 
 
@@ -25,4 +27,14 @@ def impute_missing(X_train, X_test):
                        pd.DataFrame(X_test, columns=features))
 
     return X_train, X_test
+
+
+def get_mae(X_train, y_train, X_test, y_test, mln):
+    rf = RandomForestRegressor(n_estimators=500, criterion='mse', 
+                               max_leaf_nodes=mln, random_state=1337)
+    rf.fit(X_train, y_train)
+    y_hat = rf.predict(X_test)
+    
+    return mean_absolute_error(y_test, y_hat)
+
 
