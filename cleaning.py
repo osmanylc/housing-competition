@@ -80,10 +80,10 @@ def prepare_data_and_pipeline(X, y, X_eval, model, test_size=.25):
     return p, X, y, X_eval, X_t, X_v, y_t, y_v
 
 
-def get_mae(X_train, y_train, X_test, y_test, mln):
-    rf = RandomForestRegressor(n_estimators=500, criterion='mse', 
-                               max_leaf_nodes=mln, random_state=1337)
-    rf.fit(X_train, y_train)
-    y_hat = rf.predict(X_test)
+# def get_mae(X_train, y_train, X_test, y_test, mln):
+#     rf = RandomForestRegressor(n_estimators=500, criterion='mse', 
+#                                max_leaf_nodes=mln, random_state=1337)
+#     rf.fit(X_train, y_train)
+#     y_hat = rf.predict(X_test)
     
-    return mean_absolute_error(y_test, y_hat)
+#     return mean_absolute_error(y_test, y_hat)
