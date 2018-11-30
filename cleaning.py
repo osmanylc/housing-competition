@@ -48,8 +48,7 @@ def create_one_hot_encoding(X, y, X_eval):
     return X, X_eval
 
 
-
-def prepare_data(X, y, X_eval, test_size=.25):
+def prepare_data(X, y, X_eval, test_size=.2):
     """
     Create clean training and validation sets.
     """
@@ -59,31 +58,4 @@ def prepare_data(X, y, X_eval, test_size=.25):
     X_t, X_v, y_t, y_v = train_test_split(X, y, test_size=test_size,
                                           random_state=1337)
 
-    # Impute training data
-    X_t, X_v = impute_missing(X_t, X_v)
-    X, X_eval = impute_missing(X, X_eval)
-
     return X, y, X_eval, X_t, X_v, y_t, y_v
-
-
-def prepare_data_and_pipeline(X, y, X_eval, model, test_size=.25):
-    X, X_eval = create_one_hot_encoding(X, y, X_eval)
-    
-    # Split data into test/validation sets
-    X_t, X_v, y_t, y_v = train_test_split(X, y, test_size=test_size,
-                                          random_state=1337)
-    
-
-    # Create pipeline
-    p = make_pipeline(SimpleImputer(), model)
-
-    return p, X, y, X_eval, X_t, X_v, y_t, y_v
-
-
-# def get_mae(X_train, y_train, X_test, y_test, mln):
-#     rf = RandomForestRegressor(n_estimators=500, criterion='mse', 
-#                                max_leaf_nodes=mln, random_state=1337)
-#     rf.fit(X_train, y_train)
-#     y_hat = rf.predict(X_test)
-    
-#     return mean_absolute_error(y_test, y_hat)
